@@ -2,6 +2,7 @@
 
 namespace kaabar\jwt;
 
+use Lcobucci\JWT\Token;
 use yii\di\Instance;
 use yii\filters\auth\AuthMethod;
 
@@ -98,16 +99,14 @@ class JwtHttpBearerAuth extends AuthMethod
      */
     public function challenge($response)
     {
-        $response->getHeaders()->set(
-            'WWW-Authenticate',
-            "{$this->schema} realm=\"{$this->realm}\", error=\"invalid_token\", error_description=\"The access token invalid or expired\""
-        );
+        $response->getHeaders()->set('WWW-Authenticate', "{$this->schema} realm=\"{$this->realm}\", error=\"invalid_token\", error_description=\"The access token invalid or expired\"");
     }
 
     /**
      * Parses the JWT and returns a token class
-     * @param string $token JWT
+     * @param  string  $token  JWT
      * @return Token|null
+     * @throws \Throwable
      */
     public function loadToken($token)
     {

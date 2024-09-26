@@ -13,11 +13,17 @@
     ],
     "require": {
         "yiisoft/yii2": "~2.0.0",
-	"lcobucci/jwt": "^4.0 || ^5"
+	    "lcobucci/jwt": "^5",
+        "lcobucci/clock": "3.4.x-dev"
 	},
     "autoload": {
         "psr-4": {
             "kaabar\\jwt\\": "src/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "yiisoft/yii2-composer": true
         }
     }
 }
