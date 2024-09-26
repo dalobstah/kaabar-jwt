@@ -18,9 +18,9 @@ use Lcobucci\JWT\Token\Parser;
 use Lcobucci\JWT\Token\UnsupportedHeaderFound;
 use Lcobucci\JWT\Validation\Constraint\IdentifiedBy;
 use Lcobucci\JWT\Validation\Constraint\IssuedBy;
+use Lcobucci\JWT\Validation\Constraint\LooseValidAt;
 use Lcobucci\JWT\Validation\Constraint\PermittedFor;
 use Lcobucci\JWT\Validation\Constraint\SignedWith;
-use Lcobucci\JWT\Validation\Constraint\StrictValidAt;
 use Lcobucci\JWT\Validation\RequiredConstraintsViolated;
 use Lcobucci\JWT\Validation\Validator;
 use Yii;
@@ -146,7 +146,7 @@ class Jwt extends Component
             $validator->assert($token, new PermittedFor($jwtParams['audience']));
             $validator->assert($token, new identifiedBy($jwtParams['id']));
             $validator->assert($token, new SignedWith(new $this->supportedAlgs['HS256'](), InMemory::plainText($this->key)));
-            $validator->assert($token, new StrictValidAt($clock));
+            $validator->assert($token, new LooseValidAt($clock));
 
         } catch (RequiredConstraintsViolated $e) {
             return false;
